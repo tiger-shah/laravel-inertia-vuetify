@@ -9,7 +9,7 @@ This project supports roles and permissions. The main admin is name with "Super 
 ## Installation
 This is the whole installation from beginning:
 
-#### 1. Clone project from [Git repository](https://github.com/tiger-shah/laravel-inertia-vuetify)
+#### 1. Clone project from [Git repository](https://github.com/tiger-shah/laravel-vuetify)
 
 
 #### 2. Install Composer packages by running below command:
