@@ -1,0 +1,43 @@
+/*.v-field__outline {*/
+/*    display: none !important;*/
+/*}*/
+
+/*.v-text-field .v-input__details, .v-text-field .v-input__details .v-messages {*/
+/*    min-height: 0 !important;*/
+/*}*/
+
+/*.v-text-field .v-input__details {*/
+/*    padding-bottom: 10px;*/
+/*}*/
+
+.v-alert .v-alert__prepend .v-icon {
+    font-size: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+    vertical-align: baseline;
+}
+
+.fa.v-icon, .fas.v-icon {
+    height: auto;
+    width: auto;
+    vertical-align: unset;
+    display: inline-flex;
+}
+
+.v-field__append-inner {
+    width: 40px;
+    justify-content: center;
+}
+
+.no-uppercase {
+    text-transform: unset !important;
+}
+
+.v-list-item__prepend .v-icon {
+    width: 30px;
+    justify-content: center;
+}
+
+.v-pagination .v-icon {
+    font-size: 14px;
+}
