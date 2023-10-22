@@ -39,3 +39,13 @@ php artisan make:superadmin
 ````
 php artisan db:seed
 ````
+
+#### 8. Install node packages and create build directory and app production assets
+````
+npm install
+npm run build
+````
+#### 9. Let see the app in browser. Run the below command and open the created url:
+````
+php artisan serve
+````
