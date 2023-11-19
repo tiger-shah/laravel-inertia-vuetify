@@ -14,7 +14,7 @@ This is the whole installation from beginning:
 
 #### 2. Install Composer packages by running below command:
 ````
-conposer install
+composer install
 ````
 
 #### 3. Create .env file and generate application key
