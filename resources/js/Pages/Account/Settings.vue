@@ -46,7 +46,7 @@ const emailModal = ref(false)
                         </v-col>
 
                         <v-col cols="12" md="4" lg="3">
-                            <InputDatePicker v-model="form.birthday" :error-messages="form.errors.birthday" />
+                            <InputDatePicker v-model="form.birthday" label="Birthday" :error-messages="form.errors.birthday" />
                         </v-col>
                     </v-row>
                 </v-card-text>

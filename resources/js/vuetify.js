@@ -4,13 +4,9 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { aliases, fa as fontAwesome } from 'vuetify/iconsets/fa'
 import '@fortawesome/fontawesome-free/css/all.css'
-import {VDatePicker} from "vuetify/labs/components"
 
 export default createVuetify({
-    components: {
-        ...components,
-        VDatePicker,
-    },
+    components,
     directives,
     theme: {
         defaultTheme: 'light',

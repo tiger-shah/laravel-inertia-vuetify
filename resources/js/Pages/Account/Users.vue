@@ -1,6 +1,6 @@
 <script setup>
 import Layout from "../../Layouts/Account/AccountLayout.vue"
-import {useDate} from "vuetify/labs/date"
+import {useDate} from "vuetify"
 import {router} from "@inertiajs/vue3";
 import {ref} from "vue";
 

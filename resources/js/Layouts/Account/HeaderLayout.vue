@@ -28,15 +28,18 @@ const links = [
     <v-app-bar flat class="px-4" rounded="0" title="GrandPa">
         <template v-slot:prepend>
             <v-btn
-                icon="fa fa-bars"
+                icon="fa fa-bars" rounded="xl"
                 @click="$emit('update:drawer', !drawer)"
             />
         </template>
 
-        <v-btn
-            append-icon="fa fa-angle-down"
-            class="no-uppercase"
-        >
+        <v-btn rounded="xl">
+            <v-badge dot color="error" >
+                <v-icon icon="fa fa-envelope" size="24" />
+            </v-badge>
+        </v-btn>
+
+        <v-btn append-icon="fa fa-angle-down" class="no-uppercase" rounded="xl">
             <template v-slot:prepend>
                 <v-avatar image="https://cdn.vuetifyjs.com/images/john.jpg" size="32" rounded="xl" />
             </template>
