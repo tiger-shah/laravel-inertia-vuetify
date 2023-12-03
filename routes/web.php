@@ -18,29 +18,39 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('guest')->group(function () {
-    Route::inertia('register', 'Auth/Register')->name('register');
-    Route::inertia('login', 'Auth/Login')->name('login');
-});
+    Route::prefix('register')->group(function () {
+        Route::get('/', [App\Http\Controllers\AuthController::class, 'registerShow'])->name('register');
 
-Route::middleware('auth')->prefix('account')->group(function () {
-    Route::redirect('/', 'account/dashboard')->name('account');
-
-    Route::inertia('dashboard', 'Account/Dashboard')->name('account.dashboard');
-
-    Route::get('users', [App\Http\Controllers\AccountController::class, 'showUsers'])->name('account.users');
-
-    Route::get('setting', [App\Http\Controllers\AccountController::class, 'showSetting'])->name('account.setting');
-    Route::put('setting', [App\Http\Controllers\AccountController::class, 'updateSetting'])->name('account.setting.update');
-
-    Route::get('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('account.logout');
-});
-
-Route::prefix('api')->group(function () {
-    Route::middleware('guest')->group(function () {
-        Route::post('register', [App\Http\Controllers\AuthController::class, 'register'])->name('api.register');
-        Route::post('login', [App\Http\Controllers\AuthController::class, 'login'])->name('api.login');
+        Route::post('step_one',     [App\Http\Controllers\AuthController::class, 'registerStepOne'])->name('register.step1');
+        Route::post('step_two',     [App\Http\Controllers\AuthController::class, 'registerStepTwo'])->name('register.step2');
+        Route::post('step_three',   [App\Http\Controllers\AuthController::class, 'registerStepThree'])->name('register.step3');
     });
 
-    Route::middleware('auth')->group(function () {
+    Route::prefix('login')->group(function () {
+        Route::inertia('/', 'Auth/Login')->name('login');
+        Route::post('/', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
     });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('account')->group(function () {
+        Route::redirect('/', 'account/dashboard')->name('account');
+
+        Route::inertia('dashboard', 'Account/Dashboard')->name('account.dashboard');
+
+        Route::inertia('messages', 'Account/Messages')->name('account.messages');
+
+        Route::get('setting', [App\Http\Controllers\AccountController::class, 'showSetting'])->name('account.setting');
+        Route::put('setting', [App\Http\Controllers\AccountController::class, 'updateSetting'])->name('account.setting.update');
+    });
+
+    Route::prefix('admin')->middleware('role:' . \App\Models\User::SuperAminRoleName)->group(function () {
+        Route::redirect('/', 'admin/dashboard')->name('admin');
+
+        Route::inertia('dashboard', 'Admin/Dashboard')->name('admin.dashboard');
+
+        Route::get('users', [App\Http\Controllers\AdminController::class, 'showUsers'])->name('admin.users');
+    });
+
+    Route::get('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 });

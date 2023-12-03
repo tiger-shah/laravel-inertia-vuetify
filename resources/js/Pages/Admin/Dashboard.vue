@@ -1,10 +1,8 @@
 <script setup>
-import Layout from "../../Layouts/Account/Panels/User.vue";
+import Layout from "../../Layouts/Account/Panels/Admin.vue";
 import {router} from "@inertiajs/vue3";
 
-// defineOptions({
-//     layout: ( h, page ) => h( Layout, { title: 'Dashboard' }, () => page ),
-// })
+// const
 </script>
 
 <template>

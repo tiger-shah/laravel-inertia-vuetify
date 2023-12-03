@@ -30,14 +30,12 @@ class CreateSuperAdmin extends Command
      */
     public function handle()
     {
-        $roleName = 'Super Admin';
-
-        $role = Role::where('name', $roleName)->first();
+        $role = Role::where('name', User::SuperAminRoleName)->first();
         if (! $role) {
-            $role = Role::create(['name' => $roleName]);
+            $role = Role::create(['name' => User::SuperAminRoleName]);
         }
 
-        if (User::role($roleName)->count()) {
+        if (User::role(User::SuperAminRoleName)->count()) {
             $this->error('Super admin is already declared. You can`t set more than one super admins.');
             return;
         }

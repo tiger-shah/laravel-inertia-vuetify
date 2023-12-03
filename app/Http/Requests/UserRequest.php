@@ -17,34 +17,54 @@ class UserRequest extends FormRequest
     public static function defaultRules(): RequestRules
     {
         return new RequestRules([
-            'first_name'=> ['string', 'min:3'],
-            'last_name' => ['string', 'min:3'],
-            'username'  => ['string', 'min:6'],
-            'email'     => ['email', 'max:50'],
-            'mobile'    => ['digits:11', 'regex:/^(09)/'],
-            'gender'    => ['in:' . User::data('Genders')->implode('name', ',')],
-            'birthday'  => ['date_format:Y-m-d'],
-            'password'  => [Password::min(6)->letters()->numbers()],
+            'first_name'    => ['string', 'min:3'],
+            'last_name'     => ['string', 'min:3'],
+            'username'      => ['string', 'min:6'],
+            'email'         => ['email', 'max:50'],
+            'mobile'        => ['digits:11', 'regex:/^(09)/'],
+            'gender'        => ['in:' . User::data('Genders')->implode('name', ',')],
+            'birthday'      => ['date_format:Y-m-d'],
+            'password'      => [Password::min(6)->letters()->numbers(), 'confirmed'],
         ]);
     }
 
     public function rules(): array
     {
-        switch ($this->route()->getName()) {
-            case 'api.register':
-                return $this->registerRules();
-            case 'api.login':
-                return $this->loginRules();
-            case 'account.setting.update':
-                return $this->settingRules();
-        }
+        $routeFuncs = [
+            'register.step1'            => $this->registerStepOneRules(),
+            'register.step2'            => $this->registerStepTwoRules(),
+            'register.step3'            => $this->registerStepThreeRules(),
+            'login'                     => $this->loginRules(),
+            'account.setting.update'    => $this->settingRules(),
+        ];
+
+        return $routeFuncs[$this->route()->getName()];
+//        if (key_exists($routeName = $this->route()->getName(), $routeFuncs)) {
+//            return $routeFuncs[$routeName];
+//        }
     }
 
-    public function registerRules(): array
+    public function registerStepOneRules(): array
     {
         return $this->defaultRules()
-            ->only(['first_name', 'last_name', 'email', 'password'])
+            ->only(['email'])
             ->addRuleToField('email', 'unique:users')
+            ->addRequired()
+            ->toArray();
+    }
+
+    public function registerStepTwoRules(): array
+    {
+        return $this->defaultRules()
+            ->only(['first_name', 'last_name', 'gender', 'birthday'])
+            ->addRequired()
+            ->toArray();
+    }
+
+    public function registerStepThreeRules(): array
+    {
+        return $this->defaultRules()
+            ->only(['password'])
             ->addRequired()
             ->toArray();
     }
@@ -69,7 +89,7 @@ class UserRequest extends FormRequest
     public function validated($key = null, $default = null): array
     {
         $transformedData = [];
-        if ($this->has('gender')) {
+        if ($this->has('gender') && $this->gender) {
             $transformedData['gender'] = User::data('Genders')->getKeyByName($this->gender);
         }
 

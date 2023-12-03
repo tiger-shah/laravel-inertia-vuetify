@@ -3,10 +3,6 @@ import Layout from '../../Layouts/Auth/AuthLayout.vue'
 import {useForm} from "@inertiajs/vue3"
 import {ref} from "vue";
 
-// defineOptions({
-//     layout: ( h, page ) => h( Layout, { title: 'Login' }, () => page ),
-// })
-
 const passVisible = ref(true)
 
 const form = useForm({
@@ -19,7 +15,7 @@ const form = useForm({
     <layout title="Login">
         <v-card title="Register" max-width="500px" width="100%" class="ma-4" :loading="form.processing">
             <v-card-text>
-                <v-form @submit.prevent="$page.props.message = null; form.post(route('api.login'))" :disabled="form.processing">
+                <v-form @submit.prevent="$page.props.message = null; form.post(route('login'))" :disabled="form.processing">
                     <v-text-field
                         v-model="form.email"
                         label="Email"

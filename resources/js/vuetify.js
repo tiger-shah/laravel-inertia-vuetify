@@ -46,8 +46,8 @@ export default createVuetify({
         VCard: {
             class: ['pa-4']
         },
-        VCardTitle: {
-            class: ['mb-4']
-        },
+        // VCardTitle: {
+        //     class: ['mb-4']
+        // },
     },
 })

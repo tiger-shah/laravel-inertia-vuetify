@@ -2,11 +2,11 @@
 import {ref} from "vue"
 import {useDisplay} from "vuetify"
 import App from "../AppLayout.vue"
-import Header from "./HeaderLayout.vue"
-import {usePage} from "@inertiajs/vue3";
+import Header from "./Header.vue"
 
 defineProps({
-    title: String
+    title: String,
+    drawerItems: Array,
 })
 
 const { lgAndUp } = useDisplay()
@@ -32,20 +32,6 @@ routeParts.forEach(function (item, key) {
     }
 });
 
-const page = usePage()
-const drawerLinks = [
-    { title: 'Dashboard', route: 'account.dashboard', icon: 'fa fa-mug-hot'},
-]
-
-if (page.props.user.roles.includes("Super Admin")) {
-    drawerLinks.push(
-        { title: 'Users', route: 'account.users', icon: 'fa fa-users'},
-    )
-}
-
-drawerLinks.push(
-    { title: 'Settings', route: 'account.setting', icon: 'fa fa-gear'},
-)
 </script>
 
 <template>
@@ -54,7 +40,7 @@ drawerLinks.push(
 
         <v-navigation-drawer
             v-model="drawer"
-            :width="lgAndUp ? 325 : 325"
+            width="300"
             :temporary="!lgAndUp"
             border="0"
             color="transparent"
@@ -67,7 +53,7 @@ drawerLinks.push(
             >
                 <v-list class="pa-4">
                     <v-list-item
-                        v-for="link in drawerLinks"
+                        v-for="link in drawerItems"
                         :prepend-icon="link.icon"
                         :title="link.title"
                         :to="route(link.route)"
@@ -79,7 +65,7 @@ drawerLinks.push(
         </v-navigation-drawer>
 
         <v-main>
-            <v-sheet class="py-6 px-4 px-md-6 bg-transparent">
+            <v-sheet class="py-6 px-4 px-md-6 bg-transparent d-flex flex-column" height="100%">
                 <v-sheet class="bg-transparent px-2 px-md-6 pb-6 d-flex justify-space-between">
                     <div>
                         <h2>{{ title }}</h2>

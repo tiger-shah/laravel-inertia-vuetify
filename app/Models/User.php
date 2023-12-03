@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, HasData, HasRoles;
 
+    const SuperAminRoleName = 'Super Admin';
+
     /**
      * The attributes that are mass assignable.
      *
